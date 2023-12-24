@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "448479555877",
+    "project_id": "kickscorner-905b1",
+    "storage_bucket": "kickscorner-905b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448479555877:android:e994ba31490d13b6c9eacc",
+        "android_client_info": {
+          "package_name": "com.example.kickscorner_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ08LKeyPyUojqrgwEJpCogXMSCpgyNBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
