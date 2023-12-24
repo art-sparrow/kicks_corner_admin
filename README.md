@@ -7,6 +7,8 @@ Kicks Corner is poised to revolutionize the shoe-selling industry in Kenya. Offe
 The task is then to simply develop a Flutter app that allows a user to add product variants as shown in the video. The focus is on the product options and variants so you can safely assume a product has already been added. Also, consuming a web service is out of scope. We just need the UI (User Interface) and logic for capturing product option names, values, and logic for generating the variants when a user is done entering the product options.
 
 ## Solution Screenshot and explanation
+![add_variants](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/3e4dfe8c-dbcd-4170-860a-d01dee017c68)
+![splashscreen](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/11b9b420-ea8e-4b26-8f16-fbaa0d07a30f)
 
 To recreate the attached solution follow these steps: 
 1. Download and install kickscorner_admin "apk" file using the attached link.
