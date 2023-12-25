@@ -11,7 +11,7 @@ The task is then to simply develop a Flutter app that allows a user to add produ
 ![splashscreen](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/11b9b420-ea8e-4b26-8f16-fbaa0d07a30f)
 
 To recreate the attached solution follow these steps: 
-1. Download and install the kickscorner_admin ".apk" file using the attached link.
+1. Download and install the kickscorner_admin "app-debug.apk" file using this link ( https://drive.google.com/file/d/1b4qspGB87PjbywOZyLE9jAfZIWVGIyUC/view?usp=sharing )
 2. Sign up using this super key "Sn3ak3r!24". Your data, excluding the passwords, will be stored in Firebase and you will be redirected to the home screen. 
 3. Navigate to the "Add Variants" page and add two variants of your choice i.e., Colors and Sizes.
 4. Click the "Add Product" button to see the list of variants or options that you added.
