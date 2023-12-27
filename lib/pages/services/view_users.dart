@@ -103,7 +103,7 @@ class _ViewUsersState extends State<ViewUsers> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset(
-                        'assets/icons/icon.png',
+                        'assets/icons/users.png',
                         width: 60,
                         height: 60,
                       ),

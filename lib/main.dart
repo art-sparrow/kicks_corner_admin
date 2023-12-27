@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart'; // Import the provider package for state management and dynamic widget insertion in the add_product page
 import 'package:kickscorner_admin/pages/services/test_provider.dart'; // Import the VariationProvider defined in test_provider
-//import 'package:kickscorner_admin/pages/services/add_product.dart'; //Import the VariationProvider defined in the add_products screen
+import 'package:kickscorner_admin/pages/services/add_product.dart'; //Import the ProductVariationProvider defined in the add_products screen
 import 'package:kickscorner_admin/pages/onboardscreen.dart';
 
 Future<void> main() async {
@@ -18,7 +18,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => VariationProvider()), // Add the provider used in the test_provider screen
-        // ChangeNotifierProvider(create: (_) => VariationProvider()), // Add the provider used in the add_products screen
+        ChangeNotifierProvider(create: (_) => ProductVariationProvider()), // Add the provider used in the add_products screen
       ],
       child: const MyApp(),
     ),
