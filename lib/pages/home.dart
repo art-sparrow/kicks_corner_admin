@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kickscorner_admin/pages/services/shoes.dart';
 import 'package:page_transition/page_transition.dart';
 //test the dynamic addition of widgets to the screen using provider
 import 'package:kickscorner_admin/pages/services/test_provider.dart';
@@ -99,11 +100,10 @@ class _HomeState extends State<Home> {
                   onPressed: () {
                     //Navigate to cart screen
                   },
-                  icon: Image.asset(
-                    'assets/icons/shopping_bag.png', //custom cart icon
-                    height: 25,
-                    width: 25,
-                    //fit: BoxFit.contain,
+                  icon: Icon(
+                    Icons.shopping_cart_outlined,
+                    color: Colors.black,
+                    size: 25,
                   ),
                 ),
                 Padding(
@@ -329,14 +329,11 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Stack(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  //home screen
-                ],
-              ),
+              //home screen showing the shoes
+              Shoes(),
             ],
           ),
         ),
