@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_field, use_build_context_synchronously, sort_child_properties_last, use_key_in_widget_constructors, deprecated_member_use, unused_import, library_private_types_in_public_api, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:kickscorner_admin/pages/models/cart.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:kickscorner_admin/pages/home.dart';
@@ -80,7 +81,16 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
 
   //add the product to the Firestore "cart" collection
   void addtoCart() async {
-    //fetch user data
+    // Check if size and color are selected
+    if (_selectedSize.isEmpty || _selectedColor.isEmpty) {
+      // Show a SnackBar message if size or color is not selected
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Select the size and color.')),
+      );
+      return; // Exit the function if size or color is not selected
+    }
+
+    //fetch user data if everything checks out
     await _initializeCurrentUser();
 
     final currentDate = DateTime.now();
@@ -134,11 +144,11 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
           icon: Icon(LineAwesomeIcons.angle_left),
           color: Colors.black,
         ),
-        //redirect to cart screen
+        //redirect to cart screen with right to left animation
         actions: [
           IconButton(
             onPressed: () {
-              //Navigator.push(context, PageTransition(type: PageTransitionType.leftToRight, child: CartScreen(), isIos: false));
+              Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: Cart(), isIos: false));
             },
             icon: Icon(Icons.shopping_cart_outlined),
             color: Colors.black,
@@ -318,7 +328,7 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                         child: ElevatedButton(
                           onPressed: addtoCart,
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 17, 168, 22)),
+                            backgroundColor: MaterialStateProperty.all(Colors.black),
                           ),
                           child: Text(
                             'Add to Cart',

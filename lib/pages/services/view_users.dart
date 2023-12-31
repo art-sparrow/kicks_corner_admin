@@ -98,8 +98,8 @@ class _ViewUsersState extends State<ViewUsers> {
               Stack(
                 children: [
                   SizedBox(
-                    width: 120,
-                    height: 120,
+                    width: 60,
+                    height: 60,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset(

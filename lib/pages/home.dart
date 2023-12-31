@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_key_in_widget_constructors, unused_field
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kickscorner_admin/pages/models/cart.dart';
 import 'package:kickscorner_admin/pages/services/shoes.dart';
 import 'package:page_transition/page_transition.dart';
 //test the dynamic addition of widgets to the screen using provider
@@ -23,11 +24,20 @@ class _HomeState extends State<Home> {
   late String _currentUserId = '';
   String _currentUserImageUrl = '';
   String _currentUserName = '';
+  String _phone = '';
+  int _cartItemCount = 0; //Keep track of the cart item count
 
   @override
   void initState() {
     super.initState();
-    _initializeCurrentUser();
+    /* _initializeCurrentUser();
+    _updateCartItemCount(); */
+    _initializeCurrentUser().then((_) {
+      // Call _updateCartItemCount only after _initializeCurrentUser is completed
+      // Calling them separately triggers the _updateCartItemCount before the 
+      // _initializeCurrentUser fetches the _currentUserName and _phone
+      _updateCartItemCount();
+    });
   }
 
   @override
@@ -75,9 +85,41 @@ class _HomeState extends State<Home> {
           setState(() {
             _currentUserImageUrl = data['imageUrl'];
             _currentUserName = data['name'];
+            _phone = data['phone'];
           });
         }
       }
+    }
+  }
+
+  //Function that fetches all the documents in "cart" collection where the 
+  //"username" == _currentUserName and "phone" == _phone. It then return total
+  //count of these documents.
+  Future<void> _updateCartItemCount() async {
+    try {
+      //fetch the documents
+      final snapshot = await FirebaseFirestore.instance
+          .collection('cart')
+          .where('username', isEqualTo: _currentUserName)
+          .where('phone', isEqualTo: _phone)
+          .get(); 
+      
+      /* print("Firestore query successful. Found ${snapshot.size} items.");
+      print("Query username is $_currentUserName");
+      print("Query phone is $_phone");
+      print("Snapshot: $snapshot"); */
+      //record the total number of the fetched documents
+      final int itemCount = snapshot.size;
+      setState(() {
+        //update the _cartItemCount variable
+        _cartItemCount = itemCount;
+      });
+    } catch (error) {
+      //print("Error updating cart item count: $error");
+      //if an error occurs, just set the _cartItemCount to 0
+      setState(() {
+        _cartItemCount = 0; // If _currentUserName or _phone is empty, set count to 0
+      });
     }
   }
 
@@ -93,38 +135,42 @@ class _HomeState extends State<Home> {
           //shopping bag icon with item count badge
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Stack(
-              alignment: Alignment.topRight,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    //Navigate to cart screen
-                  },
-                  icon: Icon(
-                    Icons.shopping_cart_outlined,
-                    color: Colors.black,
-                    size: 25,
+            child: GestureDetector(
+              onTap: (){
+                //Navigate to cart screen with right to left animation
+                Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: Cart(), isIos: false));
+              },
+              child: Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  IconButton(
+                    onPressed: () {}, //navigation logic is already handled by the gesture detector
+                    icon: Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.black,
+                      size: 25,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 3,
-                    right: 4,
-                  ),
-                  child: CircleAvatar(//show total number of items in the cart
-                    backgroundColor: Color.fromARGB(255, 17, 168, 22),
-                    radius: 10,
-                    child: Text(
-                      '10',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 3,
+                      right: 4,
+                    ),
+                    child: CircleAvatar(//show total number of items in the cart
+                      backgroundColor: Color.fromARGB(255, 17, 168, 22),
+                      radius: 10,
+                      child: Text(
+                        '$_cartItemCount',//total number of items in the "cart" collection for the current user
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
