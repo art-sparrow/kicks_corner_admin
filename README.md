@@ -63,7 +63,7 @@ This solution was uploaded to this repo as-is on 25-12-2023 and its link was sub
 4. Payments can be handled by integrating mpesa stk push in the app or the user can opt to pay for the products on-delivery.
 5. The "profile.dart" screen will be added to allow a user to view their information, update their information, reset their password, and logout.
 6. The "orders.dart" screen will be integrated to show the previous orders of a user when they click "My Orders" on the menu.
-7. Integration of the local notifications to alert a user when an order is received or shipped.
+7. Integration of the local notifications to alert a user when an order is received or shipped --> successfully implemented this step (view picture attached on step 3 or cart.dart)
 8. Code reviews and maintenance to ensure the app operates at maximum efficiency.
 
 ## Contact
