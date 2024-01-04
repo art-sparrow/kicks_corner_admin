@@ -164,8 +164,8 @@ class _LoginState extends State<Login> {
                   // Image
                   Image.asset(
                     'assets/images/forgot_password.png',
-                    width: 100, // Set the desired width
-                    height: 100, // Set the desired height
+                    width: 80, // Set the desired width
+                    height: 80, // Set the desired height
                   ),
                   const SizedBox(height: 20),
                   // Email textfield

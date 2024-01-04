@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kickscorner_admin/pages/models/cart.dart';
+import 'package:kickscorner_admin/pages/profile.dart';
 import 'package:kickscorner_admin/pages/services/shoes.dart';
 import 'package:page_transition/page_transition.dart';
 //test the dynamic addition of widgets to the screen using provider
@@ -214,7 +215,7 @@ class _HomeState extends State<Home> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Hi, $_currentUserName 👋",
+                                _currentUserName,
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w400,
@@ -222,12 +223,18 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                               SizedBox(height: 4), // Add some spacing between the greeting text and "View profile" text
-                              Text(
-                                "View profile",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: Color.fromARGB(255, 17, 168, 22), // Light green
+                              GestureDetector(
+                                onTap: (){
+                                  //navigate to profile screen using right to left animation
+                                  Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: Profile(), isIos: false));
+                                },
+                                child: Text(
+                                  "View profile",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Color.fromARGB(255, 17, 168, 22), // Light green
+                                  ),
                                 ),
                               ),
                             ],
