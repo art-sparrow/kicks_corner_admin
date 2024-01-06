@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kickscorner_admin/pages/models/cart.dart';
+import 'package:kickscorner_admin/pages/orders.dart';
 import 'package:kickscorner_admin/pages/profile.dart';
 import 'package:kickscorner_admin/pages/services/shoes.dart';
 import 'package:page_transition/page_transition.dart';
@@ -138,14 +139,18 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
               onTap: (){
-                //Navigate to cart screen with right to left animation
+                //Navigate to cart screen with right to left animation when the circleavatar is clicked
                 Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: Cart(), isIos: false));
               },
               child: Stack(
                 alignment: Alignment.topRight,
                 children: [
                   IconButton(
-                    onPressed: () {}, //navigation logic is already handled by the gesture detector
+                    onPressed: () {
+                      //in some cases the click might touch the cart and not the circleavatar with the cart count
+                      //Navigate to cart screen with right to left animation
+                      Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: Cart(), isIos: false));
+                    }, 
                     icon: Icon(
                       Icons.shopping_cart_outlined,
                       color: Colors.black,
@@ -251,6 +256,7 @@ class _HomeState extends State<Home> {
                       ),
                       onTap: () {
                         //navigate to Orders screen
+                        Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: Orders(), isIos: false));
                       },
                     ),
                     ListTile(

@@ -612,6 +612,7 @@ class _AddProductState extends State<AddProduct> {
                 //brand names to select from are: "Adidas", "Air Jordan", "Alexander McQueen", 
                 //"Converse", "New Balance", "Nike", "Puma", "Vans", and "Extras"
                 Container(
+                  width: 300,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.grey),

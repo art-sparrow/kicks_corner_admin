@@ -134,7 +134,9 @@ class _CartState extends State<Cart> {
         List<int> itemCounts = [];
         List<String> selectedColors = [];
         List<String> selectedSizes = [];
+        List<String> productPictures = [];
         double totalPrice = calculateTotalPrice(cartItems); //add the delivery fee as well
+        //add productPicture as well
 
         //use a for loop to fetch the recurring items and store them in Lists
         for (final cartItem in cartItems) {
@@ -143,12 +145,14 @@ class _CartState extends State<Cart> {
           final itemCount = cartData['Quantity'];
           final selectedColor = cartData['selectedColor'];
           final selectedSize = cartData['selectedSize'];
+          final productPicture = cartData['productPicture'];
 
           //add each fetched "cart" item to the "orders" Lists
           productNames.add(productName);
           itemCounts.add(itemCount);
           selectedSizes.add(selectedSize);
           selectedColors.add(selectedColor);
+          productPictures.add(productPicture);
         }
 
         //insert all the "cart" items to the "orders" collection for the current user
@@ -158,11 +162,13 @@ class _CartState extends State<Cart> {
           'phone': userPhone,
           'date': currentDate,
           'productNames': productNames, // store all product names in an array
+          'productPictures': productPictures, //store all product pictures in an array
           'selectedSizes': selectedSizes, //store all selected sizes in an array
           'selectedColors': selectedColors, //store all selected colors in an array
           'Quantities': itemCounts, // store all item counts in an array
           'totalPrice': totalPrice, // store the total price
           'deliveryAddress': '', //later integrate the google map for deliver address addition
+          'orderStatus': 'Received', //update the status of the order to "Received" --> Preparing --> Delivering --> Delivered
         });
 
         //delete or clear all the "cart" collection items since they were successfully added 

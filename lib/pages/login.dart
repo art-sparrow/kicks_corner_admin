@@ -290,7 +290,6 @@ class _LoginState extends State<Login> {
                   cursorColor: Colors.black, // Set the cursor color to black
                   focusNode: _emailFocusNode, // Set the focus node
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 25), // Adjust the vertical padding for the desired textfield height
                     labelText: 'Email',
                     labelStyle: TextStyle(
                       color: _emailFocusNode.hasFocus ? Color.fromARGB(255, 17, 168, 22) : Colors.grey, // Change the label color based on focus
@@ -327,7 +326,6 @@ class _LoginState extends State<Login> {
                   cursorColor: Colors.black, // Set the cursor color to black
                   focusNode: _passwordFocusNode, // Set the focus node
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 25), // Adjust the vertical padding for the desired textfield height
                     labelText: 'Password',
                     labelStyle: TextStyle(
                       color: _passwordFocusNode.hasFocus ? Color.fromARGB(255, 17, 168, 22) : Colors.grey, // Change the label color based on focus
