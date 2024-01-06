@@ -61,10 +61,16 @@ This solution was uploaded to this repo as-is on 25-12-2023 and its link was sub
 ![kicks_corner_cart](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/912fe943-c6d3-42a9-b5bb-f7c85fae2e6d)
 
 4. Payments can be handled by integrating mpesa stk push in the app or the user can opt to pay for the products on-delivery.
-5. The "profile.dart" screen will be added to allow a user to view their information, update their information, reset their password, and logout.
+5. The "profile.dart" screen will be added to allow a user to view their information, update their information, reset their password, and logout. --> Successfully implemented this step (view attached "profile screen" and "edit profile screen" pictures)
+![kickscorner_profile](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/f6f35bef-9b64-4d3a-bc00-bab0c732f07d)
+
+![kickscorner_edit_profile](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/f818bc55-a378-450d-a63a-ee1a7f39e149)
+
+
 6. The "orders.dart" screen will be integrated to show the previous orders of a user when they click "My Orders" on the menu.
+
 7. Integration of the local notifications to alert a user when an order is received or shipped --> successfully implemented this step (view picture attached on step 3 or cart.dart)
-8. Code reviews and maintenance to ensure the app operates at maximum efficiency.
+8. Code reviews and maintenance to ensure the app operates at maximum efficiency. --> This step is a life-long endeavour.
 
 ## Contact
 Feel free to reach out to the developer through the email that submitted this solution in case you have any queries or suggestions regarding how to make "KicksCorner" a one-of-a-kind shoe-selling app in the Republic of Kenya. Cheers!
