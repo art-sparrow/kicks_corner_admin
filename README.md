@@ -66,8 +66,10 @@ This solution was uploaded to this repo as-is on 25-12-2023 and its link was sub
 
 ![kickscorner_edit_profile](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/f818bc55-a378-450d-a63a-ee1a7f39e149)
 
+6. The "orders.dart" screen will be integrated to show the previous orders of a user when they click "My Orders" on the menu. --> Successfully implemented this step (view attached "orders_screen" pictures)
+![kickscorner_orders_screen](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/93943569-32c2-4ab5-8412-f886d5783b91)
 
-6. The "orders.dart" screen will be integrated to show the previous orders of a user when they click "My Orders" on the menu.
+![kickscorner_orders_details](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/8d0a02f1-31ca-4986-8802-8cf6e9dff24a)
 
 7. Integration of the local notifications to alert a user when an order is received or shipped --> successfully implemented this step (view picture attached on step 3 or cart.dart)
 8. Code reviews and maintenance to ensure the app operates at maximum efficiency. --> This step is a life-long endeavour.
