@@ -72,7 +72,12 @@ This solution was uploaded to this repo as-is on 25-12-2023 and its link was sub
 ![kickscorner_orders_details](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/8d0a02f1-31ca-4986-8802-8cf6e9dff24a)
 
 7. Integration of the local notifications to alert a user when an order is received or shipped --> successfully implemented this step (view picture attached on step 3 or cart.dart)
-8. Code reviews and maintenance to ensure the app operates at maximum efficiency. --> This step is a life-long endeavour.
+![kickscorner_notification](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/c535b86f-57d7-447b-84c8-9cb83b81ed0e)
+
+8. Customer support can be handled on the "support.dart" or support screen and a user should access details about the most recent orders. --> successfully implemented this step (view attached picture)
+![kickscorner_support](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/9b86764b-eaa0-4ad8-a90f-3dedc946860f)
+
+9. Code reviews and maintenance to ensure the app operates at maximum efficiency. --> This step is a life-long endeavour.
 
 ## Contact
 Feel free to reach out to the developer through the email that submitted this solution in case you have any queries or suggestions regarding how to make "KicksCorner" a one-of-a-kind shoe-selling app in the Republic of Kenya. Cheers!
