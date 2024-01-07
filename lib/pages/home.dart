@@ -7,6 +7,7 @@ import 'package:kickscorner_admin/pages/models/cart.dart';
 import 'package:kickscorner_admin/pages/orders.dart';
 import 'package:kickscorner_admin/pages/profile.dart';
 import 'package:kickscorner_admin/pages/services/shoes.dart';
+import 'package:kickscorner_admin/pages/support.dart';
 import 'package:page_transition/page_transition.dart';
 //test the dynamic addition of widgets to the screen using provider
 import 'package:kickscorner_admin/pages/services/test_provider.dart';
@@ -349,6 +350,7 @@ class _HomeState extends State<Home> {
                       ),
                       onTap: () {
                         //navigate to support screen
+                        Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: SupportScreen(), isIos: false));
                       },
                     ),
                     // About screen
