@@ -61,7 +61,11 @@ This solution was uploaded to this repo as-is on 25-12-2023 and its link was sub
 ![kicks_corner_cart](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/912fe943-c6d3-42a9-b5bb-f7c85fae2e6d)
 
 4. Payments can be handled by integrating mpesa stk push in the app or the user can opt to pay for the products on-delivery.
-5. The "profile.dart" screen will be added to allow a user to view their information, update their information, reset their password, and logout. --> Successfully implemented this step (view attached "profile screen" and "edit profile screen" pictures)
+
+5. Implement "promotions.dart" screen where a user can apply a promo-code/referral-code and the percentage discount will be effected in their order. Ensure a user can only use a promo code once, and it cannot be used when it expires or if the usage limit is exceeded. --> Successfully implemented this step (view attached pictures).
+![Kickscorner_promotions_](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/5b99fbf9-1cf6-4460-a7c7-ee78fe17093f)
+
+6. The "profile.dart" screen will be added to allow a user to view their information, update their information, reset their password, and logout. --> Successfully implemented this step (view attached "profile screen" and "edit profile screen" pictures)
 ![kickscorner_profile](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/f6f35bef-9b64-4d3a-bc00-bab0c732f07d)
 
 ![kickscorner_edit_profile](https://github.com/art-sparrow/kicks_corner_admin/assets/63036221/f818bc55-a378-450d-a63a-ee1a7f39e149)
