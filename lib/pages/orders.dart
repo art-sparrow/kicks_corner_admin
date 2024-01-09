@@ -119,6 +119,11 @@ class _OrdersState extends State<Orders> {
     //Update it each time the 'Update status' button is clicked
     String selectedOrderStatus = 'Received'; 
     final totalPrice = orderData['totalPrice'] as double;
+    //fetch discountValue
+    final discountValue = orderData['discountValue'] as double;
+    //calculate the expectedCost --> totalPrice minus the discountValue
+    final expectedCost = totalPrice - discountValue;
+    //fetch the delivery address
     final deliveryAddress = orderData['deliveryAddress'] as String;
     // Retrieve date as Timestamp
     final Timestamp dateTimestamp = orderData['date'];
@@ -219,7 +224,7 @@ class _OrdersState extends State<Orders> {
                         SizedBox(width: 10),
                         //ensure the text occupies 2-3 lines
                         Text(
-                          'Cash Order - prepare Kes $totalPrice. \n You are at liberty to tip the \n courier.',
+                          'Cash Order - prepare Kes $expectedCost. \n You are at liberty to tip the \n courier.',
                           style: TextStyle(
                             color: Color.fromARGB(255, 17, 168, 22),
                             fontSize: 15,
@@ -300,7 +305,7 @@ class _OrdersState extends State<Orders> {
                         ),
                       ),
                       //const SizedBox(width: 40),
-                      Text('- Kes 0', style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal)),
+                      Text('- Kes $discountValue', style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal)),
                     ],
                   ),
                   const SizedBox(height: 5),
@@ -349,7 +354,7 @@ class _OrdersState extends State<Orders> {
                           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Text('Kes $totalPrice', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text('Kes $expectedCost', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -410,7 +415,14 @@ class _OrdersState extends State<Orders> {
                           style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Text(orderStatus, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color.fromARGB(255, 17, 168, 22))),
+                      Text(
+                        orderStatus,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                          color: orderStatus == 'Cancelled' ? Colors.red : Color.fromARGB(255, 17, 168, 22),
+                        ),
+                      ),
                     ],
                   ), 
                   const SizedBox(height: 15),

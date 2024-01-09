@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_field, unused_local_variable, must_be_immutable, unused_import, depend_on_referenced_packages, use_build_context_synchronously, prefer_final_fields, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, unused_field, unused_local_variable, must_be_immutable, unused_import, depend_on_referenced_packages, use_build_context_synchronously, prefer_final_fields, prefer_const_constructors_in_immutables, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,6 +27,8 @@ class _CartState extends State<Cart> {
   String _currentUserId = '';
   String _username = '';
   String _phone = '';
+  //store promo code
+  String _promotionCode = '';
 
   @override
   void initState() {
@@ -100,6 +102,10 @@ class _CartState extends State<Cart> {
   void addtoOrders(List<QueryDocumentSnapshot> cartItems, BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;
     final email = user?.email;
+    //promo code and discountValue
+    final discountValue = await calculateDiscountValue(cartItems);
+    final promoCode = _promotionCode;
+
 
     if (email != null) {
       // Fetch current user's information from admins collection based on their email.
@@ -167,6 +173,8 @@ class _CartState extends State<Cart> {
           'selectedColors': selectedColors, //store all selected colors in an array
           'Quantities': itemCounts, // store all item counts in an array
           'totalPrice': totalPrice, // store the total price
+          'discountValue': discountValue, // store the discount value as a number
+          'promocode': promoCode, // store the promocode
           'deliveryAddress': '', //later integrate the google map for deliver address addition
           'orderStatus': 'Received', //update the status of the order to "Received" --> Preparing --> Delivering --> Delivered
         });
@@ -198,6 +206,92 @@ class _CartState extends State<Cart> {
     for (final cartItem in cartSnapshot.docs) {
       await cartItem.reference.delete();
     }
+  }
+
+  // Add a method to check if the user has a valid promocode
+  Future<bool> hasValidPromoCode() async {
+    final user = FirebaseAuth.instance.currentUser;
+    final email = user?.email;
+
+    //user has a valid promo code
+    if (email != null) {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('admins')
+          .doc(_currentUserId)
+          .get();
+      //pick the current promo code
+      final promoCode = snapshot.data()?['promocode'];
+
+      //ensure the promo code is not null/empty
+      if (promoCode != null) {
+        //use the promo code to fetch the exact promotion data --> expiry date
+        final promoSnapshot = await FirebaseFirestore.instance
+            .collection('promotions')
+            .where('discountCode', isEqualTo: promoCode)
+            .limit(1)
+            .get();
+
+        if (promoSnapshot.docs.isNotEmpty) {
+          final promoData = promoSnapshot.docs.first.data();
+          final expiryDate = promoData['expiryDate'];
+          //ensure the promocode is not expired
+          if (expiryDate != null && expiryDate.toDate().isAfter(DateTime.now())) {
+            // Check if the promo code is not used in previous orders
+            final orderSnapshot = await FirebaseFirestore.instance
+                .collection('orders')
+                .where('promocode', isEqualTo: promoCode)
+                .where('name', isEqualTo: _username)
+                .where('phone', isEqualTo: _phone)
+                .limit(1)
+                .get();
+
+            //return true is snapshot is empty --> code has not been used before. Otherwise return false
+            return orderSnapshot.docs.isEmpty;
+          }
+        }
+      }
+    }
+    //user does not have a valid promo code
+    return false;
+  }
+
+  // Add a method to calculate the discount value based on the discountPercentage
+  Future<double> calculateDiscountValue(List<QueryDocumentSnapshot> cartItems) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final email = user?.email;
+
+    if (email != null) {
+      final isValidPromoCode = await hasValidPromoCode();
+      //ensure the user's promo code is valid
+      if (isValidPromoCode) {
+        final snapshot = await FirebaseFirestore.instance
+            .collection('admins')
+            .doc(_currentUserId)
+            .get();
+
+        final promoCode = snapshot.data()?['promocode'];
+        //assign the promoCode to the _promotionCode --> this way you have a global variable that tracks the promo code
+        _promotionCode = promoCode;
+
+        if (promoCode != null) {
+          //select the promoCode from "promotions" and fetch the discountPercentage --> a number/int
+          final promoSnapshot = await FirebaseFirestore.instance
+              .collection('promotions')
+              .where('discountCode', isEqualTo: promoCode)
+              .limit(1)
+              .get();
+
+          if (promoSnapshot.docs.isNotEmpty) {
+            final promoData = promoSnapshot.docs.first.data();
+            final discountPercentage = promoData['discountPercentage'] ?? 0;
+
+            return calculateTotalPrice(cartItems) * (discountPercentage / 100);
+          }
+        }
+      }
+    }
+
+    return 0;
   }
 
   @override
@@ -320,13 +414,13 @@ class _CartState extends State<Cart> {
                         ),
                         //bottom checkout container showing --> Total Price and checkout button
                         Padding(
-                          padding: const EdgeInsets.all(36.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: Colors.black,
                             ),
-                            padding: const EdgeInsets.all(24),
+                            padding: const EdgeInsets.all(12),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -347,6 +441,29 @@ class _CartState extends State<Cart> {
                                       ),
                                     ),
                                     const SizedBox(height: 5),
+                                    //show text saying "Discount: -KES. $discount" if user has a "promocode" in their collection
+                                    //otherwise just hide the text
+                                    Container(
+                                      //constraints: BoxConstraints(maxHeight: 50),
+                                      //height: 50,
+                                      child: FutureBuilder<double>(
+                                        future: calculateDiscountValue(cartItems),
+                                        builder: (context, discountSnapshot) {
+                                          if (discountSnapshot.connectionState == ConnectionState.waiting) {
+                                            return Container(); // Show a loading indicator while calculating discount
+                                          } else if (discountSnapshot.hasError) {
+                                            return Text('Error: ${discountSnapshot.error}');
+                                          } else {
+                                            final discountValue = discountSnapshot.data ?? 0.0;
+                                            return Text(
+                                              'Discount: -KES. ${discountValue.toStringAsFixed(2)}',
+                                              style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 17, 168, 22), fontWeight: FontWeight.bold),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5),
                                     Text(
                                       '(Delivery fee inclusive)',
                                       style: TextStyle(color: Colors.white),
@@ -364,7 +481,7 @@ class _CartState extends State<Cart> {
                                       //call the addtoOrders function here. Pass the cartItems and current context 
                                       //passing the current context allows us to access the 
                                       //Navigation and switch pages to the next screen
-                                      addtoOrders(cartItems, context);                                   
+                                      addtoOrders(cartItems, context);                                
                                     },
                                     child: Row(
                                       children: const [
